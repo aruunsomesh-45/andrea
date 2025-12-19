@@ -1,0 +1,51 @@
+{
+    "tech_stack": [
+        "TypeScript",
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "Supabase",
+        "Clerk",
+        "Framer Motion",
+        "GSAP"
+    ],
+    "features": [
+        {
+            "name": "Contact Form",
+            "description": "A contact form that captures user details (Name, Email, Message) and saves them to the Supabase 'project_leads' table.",
+            "files": [
+                "components/SimpleContactForm.tsx",
+                "utils/supabase/client.ts"
+            ]
+        },
+        {
+            "name": "Visual Hero",
+            "description": "An interactive hero section with 3D parallax effects, floating cards, and glassmorphism buttons.",
+            "files": [
+                "components/ContactVisualHero.tsx"
+            ]
+        },
+        {
+            "name": "Authentication",
+            "description": "Handles user authentication (Sign In, Sign Up) using Clerk/Next.js middleware protection.",
+            "files": [
+                "middleware.ts",
+                "components/Navbar.tsx"
+            ]
+        },
+        {
+            "name": "Booking System",
+            "description": "Calendar and slot booking functionality for scheduling calls.",
+            "files": [
+                "components/Contact.tsx"
+            ]
+        },
+        {
+            "name": "Admin Dashboard",
+            "description": "Protected route for viewing submissions (requires authentication).",
+            "files": [
+                "app/admin/page.tsx"
+            ]
+        }
+    ]
+}

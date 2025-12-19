@@ -1,0 +1,7 @@
+# Netlify Redirects
+# Rules usually go here. For Next.js SSR, the @netlify/plugin-nextjs handles most things.
+# If you are doing a Static Export (output: 'export'), you might need:
+# /*  /index.html  200
+
+# Example Redirect:
+# /old-path  /new-path  301
