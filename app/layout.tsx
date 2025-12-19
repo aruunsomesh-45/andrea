@@ -49,13 +49,16 @@ export const metadata: Metadata = {
   },
 };
 
+// Explicitly pass the key to avoid "Missing publishableKey" errors during build if auto-detection fails
+const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={publishableKey} dynamic>
       <html lang="en" className="scroll-smooth" suppressHydrationWarning>
         <body
           suppressHydrationWarning
