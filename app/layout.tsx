@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ClerkProvider } from "@clerk/nextjs";
+
 import { Inter, Outfit, Orbitron, Michroma } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -49,8 +49,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Explicitly pass the key to avoid "Missing publishableKey" errors during build if auto-detection fails
-const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
 
 export default function RootLayout({
   children,
@@ -58,20 +57,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider publishableKey={publishableKey} dynamic>
-      <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-        <body
-          suppressHydrationWarning
-          className={`${inter.variable} ${outfit.variable} ${orbitron.variable} ${michroma.variable} antialiased font-sans bg-black text-neutral-50 flex flex-col min-h-screen`}
-        >
-          <SmoothScroll />
-          <Navbar />
-          <main className="flex-grow">
-            {children}
-          </main>
-          <Footer />
-        </body>
-      </html>
-    </ClerkProvider>
+
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} ${outfit.variable} ${orbitron.variable} ${michroma.variable} antialiased font-sans bg-black text-neutral-50 flex flex-col min-h-screen`}
+      >
+        <SmoothScroll />
+        <Navbar />
+        <main className="flex-grow">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
+
   );
 }

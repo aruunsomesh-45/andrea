@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Send, Loader2, CheckCircle } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
-import { useUser } from "@clerk/nextjs";
+
 
 type SimpleFormData = {
     fullName: string;
@@ -17,7 +17,7 @@ export default function SimpleContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-    const { user } = useUser();
+
     const {
         register,
         handleSubmit,
@@ -40,7 +40,7 @@ export default function SimpleContactForm() {
 
             const { error } = await supabase.from('form_submissions').insert([
                 {
-                    user_id: user?.id || null,
+                    user_id: null,
                     form_type: 'contact',
                     form_data: {
                         full_name: data.fullName,

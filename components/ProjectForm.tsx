@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, CheckCircle, ArrowRight, Loader2 } from "lucide-react";
 import { AIChatWindow } from "@/components/ui/ai-chat-window";
 import { createClient } from "@/utils/supabase/client";
-import { useUser } from "@clerk/nextjs";
+
 
 
 type FormData = {
@@ -61,7 +61,7 @@ export default function StartProjectForm() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { user } = useUser();
+
     const {
         register,
         handleSubmit,

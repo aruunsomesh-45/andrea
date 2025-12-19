@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { LogOut, Loader2, MessageSquare, Briefcase, Calendar, DollarSign, Layout, User, Mail, Phone, ExternalLink } from "lucide-react";
-import { useUser, useClerk, SignedIn, SignedOut, RedirectToSignIn } from "@clerk/nextjs";
 
 type Lead = {
     id: string;
@@ -44,8 +43,6 @@ type Appointment = {
 
 export default function AdminDashboard() {
     const supabase = createClient();
-    const { user, isLoaded } = useUser();
-    const { signOut } = useClerk();
     const [loading, setLoading] = useState(true);
     const [leads, setLeads] = useState<Lead[]>([]);
     const [projectLeads, setProjectLeads] = useState<ProjectLead[]>([]);
@@ -55,13 +52,9 @@ export default function AdminDashboard() {
     const router = useRouter();
 
     useEffect(() => {
-        if (isLoaded) {
-            if (user) {
-                fetchData();
-            }
-            setLoading(false);
-        }
-    }, [isLoaded, user]);
+        fetchData();
+        setLoading(false);
+    }, []);
 
     const fetchData = async () => {
         if (!supabase) return;
@@ -105,21 +98,12 @@ export default function AdminDashboard() {
         }
     };
 
-    const handleLogout = async () => {
-        await signOut();
-        router.push("/");
-    };
-
-    if (!isLoaded || loading) {
+    if (loading) {
         return (
             <div className="min-h-screen bg-black text-white flex items-center justify-center">
                 <Loader2 className="animate-spin w-8 h-8 text-blue-500" />
             </div>
         );
-    }
-
-    if (!user) {
-        return <RedirectToSignIn />;
     }
 
     return (
@@ -133,18 +117,8 @@ export default function AdminDashboard() {
                         <span className="font-bold text-white">Admin Dashboard</span>
                     </div>
                     <div className="flex items-center gap-4">
-                        <span className="text-sm text-neutral-500 hidden md:block">{user.primaryEmailAddress?.emailAddress}</span>
-                        <div className="h-4 w-px bg-white/10 hidden md:block"></div>
                         <a href="/form-a" className="text-xs text-blue-400 hover:text-blue-300">Form A</a>
                         <a href="/form-b" className="text-xs text-purple-400 hover:text-purple-300">Form B</a>
-                        <div className="h-4 w-px bg-white/10 hidden md:block"></div>
-                        <button
-                            onClick={handleLogout}
-                            className="p-2 hover:bg-white/10 rounded-full transition-colors text-neutral-400 hover:text-white"
-                            title="Sign Out"
-                        >
-                            <LogOut size={20} />
-                        </button>
                     </div>
                 </div>
             </nav>

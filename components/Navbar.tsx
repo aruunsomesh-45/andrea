@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, LayoutDashboard, LogIn } from "lucide-react";
+import { Menu, X, LayoutDashboard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/nextjs";
+
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
-    const { user } = useUser();
+
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -49,34 +49,11 @@ export default function Navbar() {
                 {/* Right Brand / Auth (Desktop) & Mobile Toggle */}
                 <div className="flex items-center gap-4 z-50 flex-shrink-0">
                     {/* Desktop Auth */}
-                    <div className="hidden md:flex items-center">
-                        <SignedIn>
-                            {user?.primaryEmailAddress?.emailAddress === 'zokuai7@gmail.com' && (
-                                <Link
-                                    href="/admin"
-                                    className="flex items-center gap-2 text-xs lg:text-sm font-medium uppercase tracking-widest transition-colors text-blue-400 hover:text-blue-300 mr-4"
-                                    title="Go to Dashboard"
-                                >
-                                    <LayoutDashboard size={16} />
-                                    <span className="hidden lg:inline">Dashboard</span>
-                                </Link>
-                            )}
-                            <UserButton afterSignOutUrl="/" />
-                        </SignedIn>
-                        <SignedOut>
-                            <SignInButton mode="modal">
-                                <button className="text-slate-500 hover:text-white transition-colors p-2" aria-label="Sign In">
-                                    <LogIn size={20} />
-                                </button>
-                            </SignInButton>
-                        </SignedOut>
-                    </div>
+
 
                     {/* Mobile Menu Toggle */}
                     <div className="md:hidden flex items-center gap-4">
-                        <SignedIn>
-                            <UserButton afterSignOutUrl="/" />
-                        </SignedIn>
+
                         <button onClick={toggleMenu} aria-label="Toggle Menu" className="focus:outline-none text-white p-1">
                             {isOpen ? <X size={24} /> : <Menu size={24} />}
                         </button>
@@ -115,24 +92,7 @@ export default function Navbar() {
 
                             <div className="w-12 h-px bg-white/10 my-2" />
 
-                            <SignedIn>
-                                {user?.primaryEmailAddress?.emailAddress === 'zokuai7@gmail.com' && (
-                                    <Link
-                                        href="/admin"
-                                        onClick={toggleMenu}
-                                        className="text-base font-bold uppercase tracking-widest flex items-center gap-2 text-blue-400"
-                                    >
-                                        <LayoutDashboard size={18} /> Dashboard
-                                    </Link>
-                                )}
-                            </SignedIn>
-                            <SignedOut>
-                                <SignInButton mode="modal">
-                                    <button onClick={toggleMenu} className="text-base font-bold uppercase tracking-widest flex items-center gap-2 text-slate-500">
-                                        Admin Login
-                                    </button>
-                                </SignInButton>
-                            </SignedOut>
+
                         </div>
                     </motion.div>
                 )}
